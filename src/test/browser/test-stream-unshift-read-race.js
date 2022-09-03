@@ -7,6 +7,7 @@
 // 3. push() after the EOF signaling null is an error.
 // 4. _read() is not called after pushing the EOF null chunk.
 
+const { Buffer } = require('buffer')
 const stream = require('../../lib/ours/index')
 const { kReadableStreamSuiteName } = require('./symbols')
 

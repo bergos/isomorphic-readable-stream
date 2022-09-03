@@ -1,5 +1,7 @@
 'use strict'
 
+const { Buffer } = require('buffer')
+
 const inherits = require('inherits')
 
 const { Transform } = require('../../lib/ours/index')

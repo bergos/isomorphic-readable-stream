@@ -16,6 +16,8 @@ if (typeof AbortSignal.abort !== 'function') {
 
 ;('use strict')
 
+const { Buffer } = require('buffer')
+
 const tap = require('tap')
 
 const silentConsole = {
