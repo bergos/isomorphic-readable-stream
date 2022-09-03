@@ -44,7 +44,8 @@
     "lint": "eslint src"
   },
   "dependencies": {
-    "abort-controller": "^3.0.0"
+    "abort-controller": "^3.0.0",
+    "buffer": "^6.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",
@@ -55,7 +56,6 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@sinonjs/fake-timers": "^9.1.2",
     "browserify": "^17.0.0",
-    "buffer-es6": "^4.9.3",
     "c8": "^7.11.2",
     "esbuild": "^0.14.39",
     "esbuild-plugin-alias": "^0.2.1",
