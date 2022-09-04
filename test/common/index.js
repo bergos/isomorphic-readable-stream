@@ -24,6 +24,8 @@
 
 const process = global.process // Some tests tamper with the process global.
 
+const { Buffer } = require('buffer')
+
 const assert = require('assert')
 
 const { exec, execSync, spawnSync } = require('child_process')

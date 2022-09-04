@@ -20,6 +20,8 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 'use strict'
 
+const { Buffer } = require('buffer')
+
 const tap = require('tap')
 
 const silentConsole = {

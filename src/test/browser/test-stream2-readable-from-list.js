@@ -1,5 +1,6 @@
 'use strict'
 
+const { Buffer } = require('buffer')
 const { _fromList: fromList } = require('../../lib/_stream_readable')
 const BufferList = require('../../lib/internal/streams/buffer_list')
 const { kReadableStreamSuiteName, kReadableStreamSuiteHasMultipleTests } = require('./symbols')

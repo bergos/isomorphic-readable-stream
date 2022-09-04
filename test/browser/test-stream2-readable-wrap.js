@@ -1,5 +1,7 @@
 'use strict'
 
+const { Buffer } = require('buffer')
+
 const { EventEmitter: EE } = require('events')
 
 const { Readable, Writable } = require('../../lib/ours/index')

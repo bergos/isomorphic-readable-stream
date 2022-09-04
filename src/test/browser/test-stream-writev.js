@@ -1,5 +1,6 @@
 'use strict'
 
+const { Buffer } = require('buffer')
 const stream = require('../../lib/ours/index')
 const { kReadableStreamSuiteName, kReadableStreamSuiteHasMultipleTests } = require('./symbols')
 
