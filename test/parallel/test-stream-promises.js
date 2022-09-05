@@ -68,7 +68,7 @@ assert.strictEqual(finished, promisify(stream.finished)) // pipeline success
     }
   })
   read.push('data')
-  setImmediate(() => read.destroy())
+  setTimeout(() => read.destroy(), 1)
   pipeline(read, write).catch(
     common.mustCall((err) => {
       assert.ok(err, 'should have an error')

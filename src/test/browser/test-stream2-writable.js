@@ -1,5 +1,6 @@
 'use strict'
 
+const process = require('process')
 const { Buffer } = require('buffer')
 const inherits = require('inherits')
 const { Duplex, Writable } = require('../../lib/ours/index')

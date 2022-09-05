@@ -1,5 +1,6 @@
 'use strict'
 
+const process = require('process')
 const crypto = require('crypto')
 const inherits = require('inherits')
 const stream = require('../../lib/ours/index')

@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {
@@ -294,12 +296,12 @@ testDestroy(
   const d = new Duplex({
     readable: false,
     construct: common.mustCall((callback) => {
-      setImmediate(
+      setTimeout(
         common.mustCall(() => {
           constructed = true
           callback()
         })
-      )
+      , 1)
     }),
 
     write(chunk, encoding, callback) {

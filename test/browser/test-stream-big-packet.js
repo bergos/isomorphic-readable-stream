@@ -59,7 +59,7 @@ module.exports = function (t) {
   t.ok(s2.write('tiny')) // Write some small data in next IO loop, which will never be written to s3
   // Because 'drain' event is not emitted from s1 and s1 is still paused
 
-  setImmediate(s1.write.bind(s1), 'later')
+  setTimeout(s1.write.bind(s1, 'later'), 1)
 
   function indexOf(xs, x) {
     for (let i = 0, l = xs.length; i < l; i++) {

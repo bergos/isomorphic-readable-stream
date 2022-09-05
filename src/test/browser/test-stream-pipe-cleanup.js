@@ -2,6 +2,7 @@
 // This test asserts that Stream.prototype.pipe does not leave listeners
 // hanging on the source or dest.
 
+const process = require('process')
 const inherits = require('inherits')
 const { Stream } = require('../../lib/ours/index')
 const { kReadableStreamSuiteName } = require('./symbols')

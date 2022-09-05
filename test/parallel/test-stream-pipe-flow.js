@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {
@@ -26,7 +28,7 @@ const { Readable, Writable, PassThrough } = require('../../lib/ours/index')
   const ws = new Writable({
     highWaterMark: 0,
     objectMode: true,
-    write: (data, end, cb) => setImmediate(cb)
+    write: (data, end, cb) => setTimeout(cb, 1)
   })
   rs.on('end', common.mustCall())
   ws.on('finish', common.mustCall())

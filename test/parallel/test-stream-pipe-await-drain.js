@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const { Buffer } = require('buffer')
 
 const tap = require('tap')
@@ -36,11 +38,11 @@ writer1.once('chunk-received', () => {
     0,
     'awaitDrain initial value should be 0, actual is ' + reader._readableState.awaitDrainWriters.size
   )
-  setImmediate(() => {
+  setTimeout(() => {
     // This one should *not* get through to writer1 because writer2 is not
     // "done" processing.
     reader.push(buffer)
-  })
+  }, 1)
 }) // A "slow" consumer:
 
 writer2._write = common.mustCall((chunk, encoding, cb) => {

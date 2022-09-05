@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {
@@ -61,12 +63,12 @@ process.nextTick(
     asyncReadable.push('bar')
   })
 )
-setImmediate(
+setTimeout(
   common.mustCall(() => {
     asyncReadable.push(null)
     assert.strictEqual(asyncReadable._readableState.needReadable, false)
   })
-)
+, 1)
 const flowing = new Readable({
   read: () => {}
 }) // Notice this must be above the on('data') call.

@@ -18,7 +18,7 @@ function MyTransform() {
 
 util.inherits(MyTransform, Transform)
 const clock = fakeTimers.install({
-  toFake: ['setImmediate', 'nextTick']
+  toFake: ['setTimeout', 'nextTick']
 })
 let stream2DataCalled = false
 const stream = new MyTransform()
@@ -29,9 +29,9 @@ stream.on('data', function () {
       stream2.on('end', function () {
         stream2DataCalled = true
       })
-      setImmediate(function () {
+      setTimeout(function () {
         stream2.end()
-      })
+      }, 1)
     })
     stream2.emit('data')
   })

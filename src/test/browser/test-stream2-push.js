@@ -1,5 +1,6 @@
 'use strict'
 
+const process = require('process')
 const { EventEmitter: EE } = require('events')
 const { Readable, Writable } = require('../../lib/ours/index')
 const { kReadableStreamSuiteName } = require('./symbols')

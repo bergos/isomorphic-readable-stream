@@ -53,11 +53,11 @@ class TestReader extends R {
 }
 
 const reader = new TestReader()
-setImmediate(function () {
+setTimeout(function () {
   assert.strictEqual(ondataCalled, 1)
   silentConsole.log('ok')
   reader.push(null)
-})
+}, 1)
 
 class TestWriter extends W {
   constructor() {

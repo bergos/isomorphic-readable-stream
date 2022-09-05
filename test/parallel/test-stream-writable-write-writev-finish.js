@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {
@@ -35,7 +37,7 @@ const stream = require('../../lib/ours/index') // Ensure consistency between the
   const writable = new stream.Writable()
 
   writable._write = (chunks, encoding, cb) => {
-    setImmediate(cb, new Error('write test error'))
+    setTimeout(cb.bind(null, new Error('write test error')), 1)
   }
 
   writable.on('finish', common.mustNotCall())
@@ -69,19 +71,19 @@ const stream = require('../../lib/ours/index') // Ensure consistency between the
   )
   writable.cork()
   writable.write('test')
-  setImmediate(function () {
+  setTimeout(function () {
     writable.end('test')
-  })
+  }, 1)
 }
 {
   const writable = new stream.Writable()
 
   writable._write = (chunks, encoding, cb) => {
-    setImmediate(cb, new Error('write test error'))
+    setTimeout(cb.bind(null, new Error('write test error')), 1)
   }
 
   writable._writev = (chunks, cb) => {
-    setImmediate(cb, new Error('writev test error'))
+    setTimeout(cb.bind(null, new Error('writev test error')), 1)
   }
 
   writable.on('finish', common.mustNotCall())
@@ -94,9 +96,9 @@ const stream = require('../../lib/ours/index') // Ensure consistency between the
   )
   writable.cork()
   writable.write('test')
-  setImmediate(function () {
+  setTimeout(function () {
     writable.end('test')
-  })
+  }, 1)
 } // Regression test for
 // https://github.com/nodejs/node/issues/13812
 
@@ -112,7 +114,7 @@ const stream = require('../../lib/ours/index') // Ensure consistency between the
   ws.on('error', common.mustCall())
 
   ws._write = (chunk, encoding, done) => {
-    setImmediate(done, new Error())
+    setTimeout(done.bind(null, new Error()), 1)
   }
 
   rs.pipe(ws)

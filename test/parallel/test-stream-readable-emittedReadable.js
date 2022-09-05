@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const { Buffer } = require('buffer')
 
 const tap = require('tap')
@@ -46,7 +48,7 @@ process.nextTick(
   })
 ) // These triggers two readable events
 
-setImmediate(
+setTimeout(
   common.mustCall(() => {
     readable.push('quo')
     process.nextTick(
@@ -55,7 +57,7 @@ setImmediate(
       })
     )
   })
-)
+, 1)
 const noRead = new Readable({
   read: () => {}
 })

@@ -20,6 +20,8 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 'use strict'
 
+const process = require('process')
+
 const { Buffer } = require('buffer')
 
 const tap = require('tap')
@@ -45,7 +47,7 @@ function test1() {
   //
   // note that this is very unusual.  it only works for crypto streams
   // because the other side of the stream will call read(0) to cycle
-  // data through openssl.  that's why setImmediate() is used to call
+  // data through openssl.  that's why setTimeout() is used to call
   // r.read(0) again later, otherwise there is no more work being done
   // and the process just exits.
 
@@ -55,24 +57,24 @@ function test1() {
   r._read = function (n) {
     switch (reads--) {
       case 5:
-        return setImmediate(() => {
+        return setTimeout(() => {
           return r.push(buf)
-        })
+        }, 1)
 
       case 4:
-        setImmediate(() => {
+        setTimeout(() => {
           return r.push(Buffer.alloc(0))
-        })
-        return setImmediate(r.read.bind(r, 0))
+        }, 1)
+        return setTimeout(r.read.bind(r, 0), 1)
 
       case 3:
-        setImmediate(r.read.bind(r, 0))
+        setTimeout(r.read.bind(r, 0), 1)
         return process.nextTick(() => {
           return r.push(Buffer.alloc(0))
         })
 
       case 2:
-        setImmediate(r.read.bind(r, 0))
+        setTimeout(r.read.bind(r, 0), 1)
         return r.push(Buffer.alloc(0))
       // Not-EOF!
 

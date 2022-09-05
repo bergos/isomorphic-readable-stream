@@ -44,12 +44,12 @@ function writeChunks(remainingChunks, callback) {
   let writeState
 
   if (writeChunk) {
-    setImmediate(() => {
+    setTimeout(() => {
       writeState = w.write(writeChunk) // We were not told to stop writing.
 
       assert.ok(writeState)
       writeChunks(remainingChunks, callback)
-    })
+    }, 1)
   } else {
     callback()
   }
@@ -80,10 +80,10 @@ writeChunks(inputChunks, () => {
     assert.ok(seen.equals(expected))
   }
 
-  setImmediate(() => {
+  setTimeout(() => {
     // The stream should not have been ended.
     assert.ok(!seenEnd)
-  })
+  }, 1)
 })
 /* replacement start */
 

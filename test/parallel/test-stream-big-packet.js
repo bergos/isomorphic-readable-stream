@@ -20,6 +20,8 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 'use strict'
 
+const process = require('process')
+
 const { Buffer } = require('buffer')
 
 const tap = require('tap')
@@ -68,7 +70,7 @@ assert(!s1.write(big)) // 'tiny' is small enough to pass through internal buffer
 assert(s2.write('tiny')) // Write some small data in next IO loop, which will never be written to s3
 // Because 'drain' event is not emitted from s1 and s1 is still paused
 
-setImmediate(s1.write.bind(s1), 'later') // Assert after two IO loops when all operations have been done.
+setTimeout(s1.write.bind(s1, 'later'), 1) // Assert after two IO loops when all operations have been done.
 
 process.on('exit', function () {
   assert(passed, 'Large buffer is not handled properly by Writable Stream')

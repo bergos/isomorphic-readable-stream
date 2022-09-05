@@ -1,5 +1,6 @@
 'use strict'
 
+const process = require('process')
 const { Buffer } = require('buffer')
 const { Readable, Writable } = require('../../lib/ours/index')
 const { kReadableStreamSuiteName } = require('./symbols')
@@ -16,7 +17,7 @@ module.exports = function (t) {
   let chunks = totalChunks
   r._read = function (n) {
     if (!(chunks % 2)) {
-      setImmediate(push)
+      setTimeout(push, 1)
     } else if (!(chunks % 3)) {
       process.nextTick(push)
     } else {
@@ -76,7 +77,7 @@ module.exports = function (t) {
         }
 
         // Nothing should be lost in between
-        setImmediate(pipeLittle)
+        setTimeout(pipeLittle, 1)
       }
     })
   }
@@ -89,7 +90,7 @@ module.exports = function (t) {
     let written = 0
     w.on('finish', function () {
       t.equal(written, 200)
-      setImmediate(read1234)
+      setTimeout(read1234, 1)
     })
     w._write = function (chunk, encoding, cb) {
       written += chunk.length
@@ -103,7 +104,7 @@ module.exports = function (t) {
           r.unshift(chunk.slice(chunk.length - diff))
         }
       } else {
-        setImmediate(cb)
+        setTimeout(cb, 1)
       }
     }
     r.pipe(w)
@@ -127,7 +128,7 @@ module.exports = function (t) {
     r.pause()
     r.resume()
     r.pause()
-    setImmediate(pipe)
+    setTimeout(pipe, 1)
   }
 
   function pipe() {

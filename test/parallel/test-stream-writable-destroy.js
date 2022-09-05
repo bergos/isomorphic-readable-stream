@@ -16,6 +16,8 @@ if (typeof AbortSignal.abort !== 'function') {
 
 ;('use strict')
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {
@@ -444,9 +446,9 @@ const assert = require('assert')
   let state = 0
   const write = new Writable({
     write(chunk, enc, cb) {
-      // `setImmediate()` is used on purpose to ensure the callback is called
+      // `setTimeout()` is used on purpose to ensure the callback is called
       // after `process.nextTick()` callbacks.
-      setImmediate(cb)
+      setTimeout(cb, 1)
     }
   })
   write.write(

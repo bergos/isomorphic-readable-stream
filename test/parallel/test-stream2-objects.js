@@ -20,6 +20,8 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 'use strict'
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {

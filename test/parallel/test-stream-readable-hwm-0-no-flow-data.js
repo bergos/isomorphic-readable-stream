@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {
@@ -57,10 +59,10 @@ assert.strictEqual(r.readableFlowing, false) // The stream emits the events asyn
 // happen on the next tick (especially since the _read implementation above
 // uses process.nextTick).
 //
-// We use setImmediate here to give the stream enough time to emit all the
+// We use setTimeout here to give the stream enough time to emit all the
 // events it's about to emit.
 
-setImmediate(() => {
+setTimeout(() => {
   // Only the _read, push, readable calls have happened. No data must be
   // emitted yet.
   assert.deepStrictEqual(calls, ['_read:a', 'push:a', 'readable']) // Calling 'r.read()' should trigger the data event.
@@ -73,11 +75,11 @@ setImmediate(() => {
   // null value as the stream doesn't know yet that it is about to reach the
   // end.
   //
-  // Using setImmediate again to give the stream enough time to emit all the
+  // Using setTimeout again to give the stream enough time to emit all the
   // events it wants to emit.
 
   assert.strictEqual(r.read(), null)
-  setImmediate(() => {
+  setTimeout(() => {
     // There's a new 'readable' event after the data has been pushed.
     // The 'end' event will be emitted only after a 'read()'.
     //
@@ -103,8 +105,8 @@ setImmediate(() => {
         'end'
       ])
     })
-  })
-})
+  }, 1)
+}, 1)
 /* replacement start */
 
 process.on('beforeExit', (code) => {

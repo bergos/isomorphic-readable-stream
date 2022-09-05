@@ -159,10 +159,10 @@ const { once } = require('events')
       }
     )
     .then(common.mustCall())
-  setImmediate(() => {
+  setTimeout(() => {
     ac.abort()
     assert.strictEqual(calls, 2)
-  })
+  }, 1)
 }
 {
   // Error cases

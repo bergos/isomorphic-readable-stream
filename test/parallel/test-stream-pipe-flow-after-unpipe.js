@@ -21,7 +21,7 @@ const ws = new Writable({
   highWaterMark: 1,
   write: common.mustCall(() => {
     // Ignore the callback, this write() simply never finishes.
-    setImmediate(() => rs.unpipe(ws))
+    setTimeout(() => rs.unpipe(ws), 1)
   })
 })
 let chunks = 0

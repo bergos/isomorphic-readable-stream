@@ -16,6 +16,8 @@ if (typeof AbortSignal.abort !== 'function') {
 
 ;('use strict')
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {
@@ -155,7 +157,7 @@ const http = require('http')
   const rs = Readable.from(
     (function* () {
       yield 5
-      setImmediate(() => ac.abort())
+      setTimeout(() => ac.abort(), 1)
     })()
   )
   rs.resume()
@@ -175,7 +177,7 @@ const http = require('http')
     const ac = new AbortController()
     const { signal } = ac
     const rs = Readable.from((function* () {})())
-    setImmediate(() => ac.abort())
+    setTimeout(() => ac.abort(), 1)
     await finishedPromise(rs, {
       signal
     })
@@ -317,7 +319,7 @@ const http = require('http')
 {
   const w = new Writable({
     write(chunk, encoding, callback) {
-      setImmediate(callback)
+      setTimeout(callback, 1)
     }
   })
   finished(
@@ -350,10 +352,10 @@ function testClosed(factory) {
     let destroyed = false
     const s = factory({
       destroy(err, cb) {
-        setImmediate(() => {
+        setTimeout(() => {
           destroyed = true
           cb()
-        })
+        }, 1)
       }
     })
     s.destroy()
@@ -380,12 +382,12 @@ function testClosed(factory) {
     // Invoke with deep async.
     const s = factory({
       destroy(err, cb) {
-        setImmediate(() => {
+        setTimeout(() => {
           cb()
-          setImmediate(() => {
+          setTimeout(() => {
             finished(s, common.mustCall())
-          })
-        })
+          }, 1)
+        }, 1)
       }
     })
     s.destroy()
@@ -580,12 +582,12 @@ testClosed(
   instance.end()
   ;(async () => {
     await EE.once(instance, 'finish')
-    setImmediate(() => {
+    setTimeout(() => {
       response.write('chunk 1')
       response.write('chunk 2')
       response.write('chunk 3')
       response.end()
-    })
+    }, 1)
     let res = ''
 
     for await (const data of instance) {

@@ -33,13 +33,13 @@ module.exports = function (t) {
   w2.write(Buffer.from('blerg'))
   w2.write(Buffer.from('blerg'))
   w2.end()
-  setImmediate(function () {
+  setTimeout(function () {
     t.equal(w._write, _write)
     t.ok(_writeCalled)
     t.equal(w2._writev, _writev)
     t.equal(dLength, 2)
     t.ok(_writevCalled)
-  })
+  }, 1)
 }
 
 module.exports[kReadableStreamSuiteName] = 'stream-writable-constructor-set-methods'

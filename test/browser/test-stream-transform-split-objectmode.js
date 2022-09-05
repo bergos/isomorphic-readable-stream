@@ -52,9 +52,9 @@ module.exports = function (t) {
   serializer.on('end', function () {
     t.equals(serialized[0], 42, 'searlizer ended')
   })
-  setImmediate(function () {
+  setTimeout(function () {
     serializer.end()
-  })
+  }, 1)
 }
 
 module.exports[kReadableStreamSuiteName] = 'stream-transform-split-objectmode'

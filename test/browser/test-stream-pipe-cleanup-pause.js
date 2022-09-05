@@ -27,12 +27,12 @@ module.exports = function (t) {
     reader.unpipe(writer1)
     reader.pipe(writer2)
     reader.push(buffer)
-    setImmediate(function () {
+    setTimeout(function () {
       reader.push(buffer)
-      setImmediate(function () {
+      setTimeout(function () {
         reader.push(buffer)
-      })
-    })
+      }, 1)
+    }, 1)
   })
 
   writer2._write = function (chunk, encoding, cb) {

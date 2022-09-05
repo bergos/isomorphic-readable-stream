@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const { Buffer } = require('buffer')
 
 const { PassThrough, Transform } = require('../../lib/ours/index')

@@ -33,7 +33,7 @@ const { once } = require('events')
 
 const st = require('timers').setTimeout
 
-function setTimeout(ms) {
+function setTimeoutLocal(ms) {
   return new Promise((resolve) => {
     st(resolve, ms)
   })
@@ -173,16 +173,16 @@ function setTimeout(ms) {
       }
     )
     .then(common.mustCall())
-  setImmediate(() => {
+  setTimeout(() => {
     ac.abort()
     assert.strictEqual(calls, 2)
-  })
+  }, 1)
 }
 {
   // Concurrency result order
   const stream = Readable.from([1, 2]).filter(
     async (item, { signal }) => {
-      await setTimeout(10 - item, {
+      await setTimeoutLocal(10 - item, {
         signal
       })
       return true

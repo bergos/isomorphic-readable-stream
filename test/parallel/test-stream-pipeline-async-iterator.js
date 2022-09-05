@@ -21,9 +21,9 @@ async function run() {
   })
   source.push('hello')
   source.push('world')
-  setImmediate(() => {
+  setTimeout(() => {
     source.destroy(_err)
-  })
+  }, 1)
   const iterator = pipeline(source, new PassThrough(), () => {})
   iterator.setEncoding('utf8')
 

@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const inherits = require('inherits')
 
 const { Readable } = require('../../lib/ours/index')
