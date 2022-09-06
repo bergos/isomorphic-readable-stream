@@ -41,9 +41,9 @@ let nChunks = 10
 const chunk = Buffer.alloc(10, 'x')
 
 r._read = function (n) {
-  setImmediate(() => {
+  setTimeout(() => {
     r.push(--nChunks === 0 ? null : chunk)
-  })
+  }, 1)
 }
 
 let readAll = false

@@ -68,9 +68,9 @@ module.exports = function (test) {
 
     _read2.push('data')
 
-    setImmediate(function () {
+    setTimeout(function () {
       return _read2.destroy()
-    })
+    }, 1)
     pipeline(_read2, _write, (err) => {
       t.equal(err.message, 'Premature close')
     })
@@ -90,9 +90,9 @@ module.exports = function (test) {
 
     _read3.push('data')
 
-    setImmediate(function () {
+    setTimeout(function () {
       return _read3.destroy(new Error('kaboom'))
-    })
+    }, 1)
     const dst = pipeline(_read3, _write2, (err) => {
       t.equal(err.message, 'kaboom')
     })

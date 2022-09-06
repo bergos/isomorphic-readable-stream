@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const { Buffer } = require('buffer')
 
 const { Readable, Writable } = require('../../lib/ours/index')
@@ -19,7 +21,7 @@ module.exports = function (t) {
 
   r._read = function (n) {
     if (!(chunks % 2)) {
-      setImmediate(push)
+      setTimeout(push, 1)
     } else if (!(chunks % 3)) {
       process.nextTick(push)
     } else {
@@ -81,7 +83,7 @@ module.exports = function (t) {
           r.unshift(c.slice(c.length - diff)) // console.error('seen too much', seen, diff)
         } // Nothing should be lost in between
 
-        setImmediate(pipeLittle)
+        setTimeout(pipeLittle, 1)
       }
     })
   } // Just pipe 200 bytes, then unshift the extra and unpipe
@@ -93,7 +95,7 @@ module.exports = function (t) {
     let written = 0
     w.on('finish', function () {
       t.equal(written, 200)
-      setImmediate(read1234)
+      setTimeout(read1234, 1)
     })
 
     w._write = function (chunk, encoding, cb) {
@@ -110,7 +112,7 @@ module.exports = function (t) {
           r.unshift(chunk.slice(chunk.length - diff))
         }
       } else {
-        setImmediate(cb)
+        setTimeout(cb, 1)
       }
     }
 
@@ -134,7 +136,7 @@ module.exports = function (t) {
     r.pause()
     r.resume()
     r.pause()
-    setImmediate(pipe)
+    setTimeout(pipe, 1)
   }
 
   function pipe() {

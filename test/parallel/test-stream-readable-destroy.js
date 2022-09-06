@@ -16,6 +16,8 @@ if (typeof AbortSignal.abort !== 'function') {
 
 ;('use strict')
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {

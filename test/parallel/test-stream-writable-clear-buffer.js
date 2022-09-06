@@ -25,7 +25,7 @@ class StreamWritable extends Stream.Writable {
   // Otherwise the code will never reach our test case.
 
   _write(chunk, encoding, cb) {
-    setImmediate(cb)
+    setTimeout(cb, 1)
   }
 }
 

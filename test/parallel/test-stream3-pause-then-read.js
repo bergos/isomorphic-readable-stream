@@ -20,6 +20,8 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 'use strict'
 
+const process = require('process')
+
 const { Buffer } = require('buffer')
 
 const tap = require('tap')
@@ -48,7 +50,7 @@ let chunks = totalChunks
 
 r._read = function (n) {
   silentConsole.log('_read called', chunks)
-  if (!(chunks % 2)) setImmediate(push)
+  if (!(chunks % 2)) setTimeout(push, 1)
   else if (!(chunks % 3)) process.nextTick(push)
   else push()
 }
@@ -107,7 +109,7 @@ function onData() {
         silentConsole.error('seen too much', seen, diff)
       } // Nothing should be lost in-between.
 
-      setImmediate(pipeLittle)
+      setTimeout(pipeLittle, 1)
     }
   })
 } // Just pipe 200 bytes, then unshift the extra and unpipe.
@@ -119,7 +121,7 @@ function pipeLittle() {
   let written = 0
   w.on('finish', () => {
     assert.strictEqual(written, 200)
-    setImmediate(read1234)
+    setTimeout(read1234, 1)
   })
 
   w._write = function (chunk, encoding, cb) {
@@ -136,7 +138,7 @@ function pipeLittle() {
         r.unshift(chunk.slice(chunk.length - diff))
       }
     } else {
-      setImmediate(cb)
+      setTimeout(cb, 1)
     }
   }
 
@@ -160,7 +162,7 @@ function resumePause() {
   r.pause()
   r.resume()
   r.pause()
-  setImmediate(pipe)
+  setTimeout(pipe, 1)
 }
 
 function pipe() {

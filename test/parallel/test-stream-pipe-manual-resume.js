@@ -29,10 +29,10 @@ function test(throwCodeInbetween) {
   const ws = stream.Writable({
     objectMode: true,
     write: common.mustCall((data, enc, cb) => {
-      setImmediate(cb)
+      setTimeout(cb, 1)
     }, n)
   })
-  setImmediate(() => throwCodeInbetween(rs, ws))
+  setTimeout(() => throwCodeInbetween(rs, ws), 1)
   rs.pipe(ws)
 }
 

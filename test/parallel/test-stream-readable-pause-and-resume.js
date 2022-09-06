@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const { Buffer } = require('buffer')
 
 const tap = require('tap')
@@ -35,11 +37,11 @@ function readAndPause() {
     rs.pause()
     expectedData--
     if (expectedData <= 0) return
-    setImmediate(function () {
+    setTimeout(function () {
       rs.removeListener('data', ondata)
       readAndPause()
       rs.resume()
-    })
+    }, 1)
   }, 1) // Only call ondata once
 
   rs.on('data', ondata)

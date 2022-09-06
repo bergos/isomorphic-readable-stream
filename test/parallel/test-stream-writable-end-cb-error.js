@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {
@@ -74,11 +76,11 @@ const stream = require('../../lib/ours/index')
 {
   const w = new stream.Writable({
     write(chunk, encoding, callback) {
-      setImmediate(callback)
+      setTimeout(callback, 1)
     },
 
     finish(callback) {
-      setImmediate(callback)
+      setTimeout(callback, 1)
     }
   })
   w.end(

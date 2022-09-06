@@ -20,6 +20,8 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 'use strict'
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {
@@ -124,9 +126,9 @@ function end() {
   source.emit('end')
   assert(!reading)
   writer.end(stream.read())
-  setImmediate(function () {
+  setTimeout(function () {
     assert(ended)
-  })
+  }, 1)
 }
 /* replacement start */
 

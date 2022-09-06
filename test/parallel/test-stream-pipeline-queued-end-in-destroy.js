@@ -44,9 +44,9 @@ pipeline(
 // That should trigger the pipeline destruction.
 
 readable.push('foo')
-setImmediate(() => {
+setTimeout(() => {
   readable.destroy()
-})
+}, 1)
 /* replacement start */
 
 process.on('beforeExit', (code) => {

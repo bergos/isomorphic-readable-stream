@@ -1,5 +1,7 @@
 'use strict'
 
+const process = require('process')
+
 const tap = require('tap')
 
 const silentConsole = {
@@ -189,10 +191,10 @@ const BATCH = 10
     silentConsole.log('data emitted', data)
   })
   readable.on('end', common.mustCall())
-  setImmediate(() => {
+  setTimeout(() => {
     readable.push('aaa')
     readable.push(null)
-  })
+  }, 1)
 }
 /* replacement start */
 

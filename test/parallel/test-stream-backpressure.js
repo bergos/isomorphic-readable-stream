@@ -39,7 +39,7 @@ const rs = new stream.Readable({
 })
 const ws = stream.Writable({
   write: common.mustCall(function (data, enc, cb) {
-    setImmediate(cb)
+    setTimeout(cb, 1)
   }, 41 * 10)
 })
 rs.pipe(ws)
