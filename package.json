@@ -1,8 +1,8 @@
 {
-  "name": "readable-stream",
+  "name": "isomorphic-readable-stream",
   "version": "4.1.0",
   "description": "Node.js Streams, a user-land copy of the stream library from Node.js",
-  "homepage": "https://github.com/nodejs/readable-stream",
+  "homepage": "https://github.com/bergos/isomorphic-readable-stream",
   "license": "MIT",
   "licenses": [
     {
@@ -17,10 +17,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/nodejs/readable-stream"
+    "url": "git://github.com/bergos/isomorphic-readable-stream"
   },
   "bugs": {
-    "url": "https://github.com/nodejs/readable-stream/issues"
+    "url": "https://github.com/bergos/isomorphic-readable-stream/issues"
   },
   "main": "lib/ours/index.js",
   "files": [
